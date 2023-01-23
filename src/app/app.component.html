@@ -1,5 +1,65 @@
-<div class="columns mt-2">
-  <div class="column col-12">
-    <ngx-table [data]="data" [configuration]="configuration" [columns]="columns"> </ngx-table>
+<ngx-slider [(value)]="minvalue" [(highValue)]="maxvalue" [options]="options" (valueChange)="minSalaryChange($event)" (highValueChange)="maxSalaryChange($event)"></ngx-slider>
+    <br>
+    <div class="columns mt-2">
+      <div class="column col-6">
+        <div class="form-group">
+          <select class="form-select" (change)="onGenderChange($event)">
+            <option>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div style="width:50%">
+        <ng-multiselect-dropdown
+            [placeholder]="'Select Rank'"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+            (onDeSelect)="onItemDeSelect($event)"
+            (onDeSelectAll)="onUnSelectAll()"
+            [data]="dropdownList">
+        </ng-multiselect-dropdown>
+    </div>
+      <div class="column col-6">
+        <div class="form-group">
+          <button class="btn float-right" (click)="reset()">Reset search</button>
+        </div>
+      </div>
+<div class="container">
+  <h5 class="text-center mt-3">Salaries Data</h5>
+  <div class="table-responsive">
+      <table class="table table-bordered p-0 m-0">
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Rank</th>
+                  <th scope="col">Discipline</th>
+                  <th scope="col">Years Since PHD</th>
+                  <th scope="col">Yrs Experience</th>
+                  <th scope="col">Sex</th>
+                  <th scope="col">Salary</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr scope="row" *ngFor="let d of rows">
+                  <td>{{ d.id }}</td>
+                  <td>{{ d.ranks }}</td>
+                  <td>{{ d.discipline}}</td>
+                  <td>{{ d.yrSincePhd }}</td>
+                  <td>{{ d.yrsService }}</td>
+                  <td>{{ d.sex }}</td>
+                  <td>{{ d.salary }}</td>
+              </tr>
+              <tr scope="row" *ngIf="rows.length === 0">
+                  <td colspan="6" class="text-center">No record found</td>
+              </tr>
+          </tbody>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
   </div>
+</div>
+<div>
+    <button type="button" class="btn btn-primary" (click)="downloadPdf()">Download PDF</button>
+    <button type="button" class="btn btn-primary" (click)="downloadPdf()" style="margin-left:30px;">Download PDF</button>
 </div>
