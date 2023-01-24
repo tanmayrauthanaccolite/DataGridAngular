@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     TableModule,
     HttpClientModule,
     MatPaginatorModule,

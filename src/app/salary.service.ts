@@ -34,4 +34,9 @@ export class SalaryService {
     console.log(body);
     return this.http.post("http://localhost:8099/salary/users/export/pdf", body,{responseType:'blob'});
   }
+
+  downloadExcel(body:any):Observable<Blob>{
+    console.log(body);
+    return this.http.post("http://localhost:8099/salary/exportExcel", body,{responseType:'blob'});
+  }
 }

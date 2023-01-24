@@ -1,65 +1,72 @@
-<ngx-slider [(value)]="minvalue" [(highValue)]="maxvalue" [options]="options" (valueChange)="minSalaryChange($event)" (highValueChange)="maxSalaryChange($event)"></ngx-slider>
+<div>
+  <h2 style="margin-left: 42%;">Data Grid</h2>
+</div>
+<div class="outerDiv FlexContainer">
+  <div class="filterDiv">
+    <ngx-slider [(value)]="filters.minvalue" [(highValue)]="filters.maxvalue" [options]="options"
+      (valueChange)="minSalaryChange($event)" (highValueChange)="maxSalaryChange($event)"></ngx-slider>
     <br>
     <div class="columns mt-2">
       <div class="column col-6">
         <div class="form-group">
-          <select class="form-select" (change)="onGenderChange($event)">
-            <option>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
+          <select class="form-select" name="gender" [(ngModel)]="filters.gender" (change)="onGenderChange($event)">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
           </select>
         </div>
       </div>
       <br>
-      <div style="width:50%">
-        <ng-multiselect-dropdown
-            [placeholder]="'Select Rank'"
-            [settings]="dropdownSettings"
-            (onSelect)="onItemSelect($event)"
-            (onDeSelect)="onItemDeSelect($event)"
-            (onDeSelectAll)="onUnSelectAll()"
-            [data]="dropdownList">
+      <div class="rank" style="width:35%">
+        <ng-multiselect-dropdown [placeholder]="'Select Rank'" [(ngModel)]="filters.ranks" [settings]="dropdownSettings"
+          (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)" (onDeSelectAll)="onUnSelectAll()"
+          [data]="dropdownList">
         </ng-multiselect-dropdown>
-    </div>
-      <div class="column col-6">
+      </div>
+      <div class="column col-6" style="margin-top: 25px;">
         <div class="form-group">
-          <button class="btn float-right" (click)="reset()">Reset search</button>
+          <button type="button" class="btn btn-secondary" (click)="reset()">Reset</button>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="downloadButtonDiv ">
+    <button type="button" class="btn btn-primary downloadbutton" (click)="downloadPdf()">Download PDF</button>
+    <button type="button" class="btn btn-primary downloadbutton" (click)="excelDownload()" style="margin-left:30px;">Download
+      Excel</button>
+  </div>
+</div>
 <div class="container">
   <h5 class="text-center mt-3">Salaries Data</h5>
   <div class="table-responsive">
-      <table class="table table-bordered p-0 m-0">
-          <thead>
-              <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Discipline</th>
-                  <th scope="col">Years Since PHD</th>
-                  <th scope="col">Yrs Experience</th>
-                  <th scope="col">Sex</th>
-                  <th scope="col">Salary</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr scope="row" *ngFor="let d of rows">
-                  <td>{{ d.id }}</td>
-                  <td>{{ d.ranks }}</td>
-                  <td>{{ d.discipline}}</td>
-                  <td>{{ d.yrSincePhd }}</td>
-                  <td>{{ d.yrsService }}</td>
-                  <td>{{ d.sex }}</td>
-                  <td>{{ d.salary }}</td>
-              </tr>
-              <tr scope="row" *ngIf="rows.length === 0">
-                  <td colspan="6" class="text-center">No record found</td>
-              </tr>
-          </tbody>
-      </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"> </mat-paginator>
+    <table class="table table-bordered p-0 m-0">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Rank</th>
+          <th scope="col">Discipline</th>
+          <th scope="col">Years Since PHD</th>
+          <th scope="col">Yrs Experience</th>
+          <th scope="col">Sex</th>
+          <th scope="col">Salary</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let d of rows">
+          <td>{{ d.id }}</td>
+          <td>{{ d.ranks }}</td>
+          <td>{{ d.discipline}}</td>
+          <td>{{ d.yrSincePhd }}</td>
+          <td>{{ d.yrsService }}</td>
+          <td>{{ d.sex }}</td>
+          <td>{{ d.salary }}</td>
+        </tr>
+        <tr scope="row" *ngIf="rows.length === 0">
+          <td colspan="6" class="text-center">No record found</td>
+        </tr>
+      </tbody>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElements"
+      (page)="nextPage($event)"> </mat-paginator>
   </div>
-</div>
-<div>
-    <button type="button" class="btn btn-primary" (click)="downloadPdf()">Download PDF</button>
-    <button type="button" class="btn btn-primary" (click)="downloadPdf()" style="margin-left:30px;">Download PDF</button>
 </div>
